@@ -6,7 +6,8 @@ export interface ChannelI {
 }
 
 export interface ChannelQueryI {
-  limit: number
-  offset: number
-  userId: string
+  limit?: number
+  offset?: number
+  userId?: string
+  searchQuery?: string
 }

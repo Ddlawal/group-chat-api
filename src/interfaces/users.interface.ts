@@ -11,3 +11,9 @@ export interface UsersPasswordI {
   password: string
   userId: string
 }
+
+export interface UserQueryI {
+  limit?: number
+  offset?: number
+  channelId?: string
+}

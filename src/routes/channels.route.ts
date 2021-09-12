@@ -6,10 +6,11 @@ const path = '/channels'
 const router = Router()
 const channelsController = new ChannelsController()
 
-// router.post('/', channelsController.createChannel)
+router.post('/createChannel', authMiddleware, channelsController.createChannel)
+router.get('/getAllChannels', authMiddleware, channelsController.getAllChannels)
 router.get('/getChannels', authMiddleware, channelsController.getChannels)
-router.get('/getChannelById/:id(\\d+)', channelsController.getChannelById)
-router.put('/updateChannel/:id(\\d+)', channelsController.updateChannel)
-router.delete('/deleteChannel/:id(\\d+)', channelsController.deleteChannel)
+router.get('/getChannelById/:channelId(\\d+)', authMiddleware, channelsController.getChannelById)
+router.put('/updateChannel/:channelId(\\d+)', authMiddleware, channelsController.updateChannel)
+router.delete('/deleteChannel/:channelId(\\d+)', authMiddleware, channelsController.deleteChannel)
 
 export default { path, router }

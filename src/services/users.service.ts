@@ -1,13 +1,26 @@
 import { HttpException } from '@middlewares/error.middleware'
-import { UserI } from '@interfaces/users.interface'
+import { UserI, UserQueryI } from '@interfaces/users.interface'
 import { isFalsy } from '@utils/util'
 import { User, UserCreationI } from '@/models/users.model'
+import { Op } from 'sequelize'
+import { ChannelMember } from '@/models/channelMemebers.model'
 
 class UserService {
   public users = User
+  public channelMembers = ChannelMember
 
-  public async findAllUser({ limit, offset }: { limit: number; offset: number }): Promise<UserI[]> {
-    const allUser: UserI[] = await this.users.findAll({ limit, offset })
+  public async findAllUser({ limit, offset, channelId }: UserQueryI): Promise<UserI[]> {
+    const channelMembers = await this.channelMembers.findAll({
+      where: { channelId },
+      raw: true,
+      attributes: ['userId'],
+    })
+    const userIds = channelMembers.map(({ userId }) => userId)
+    const allUser: UserI[] = await this.users.findAll({
+      where: { userId: { [Op.in]: userIds } },
+      limit,
+      offset,
+    })
 
     return allUser
   }

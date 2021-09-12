@@ -7,11 +7,11 @@ import { User } from '@/models/users.model'
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
   try {
-    const Authorization = req.header('Authorization').split(' ')[1] || null
-    console.log(Authorization)
-    if (Authorization) {
+    const token = req.header('Authorization')?.split('Bearer ')[1] || null
+
+    if (token) {
       const secretKey: string = config.secretKey
-      const verificationResponse = jwt.verify(Authorization, secretKey) as DataStoredInToken
+      const verificationResponse = jwt.verify(token, secretKey) as DataStoredInToken
       const userId = verificationResponse.userId
       const foundUser = await User.findByPk(userId)
 
@@ -19,10 +19,10 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
         req.user = foundUser
         next()
       } else {
-        next(new HttpException(401, 'Wrong authentication token'))
+        next(new HttpException(401, 'User not authenticated'))
       }
     } else {
-      next(new HttpException(404, 'Authentication token missing'))
+      next(new HttpException(404, 'Authentication error!'))
     }
   } catch (error) {
     next(new HttpException(401, 'Wrong authentication token'))

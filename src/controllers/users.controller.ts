@@ -9,13 +9,14 @@ class UsersController {
   public getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { page, limit } = req.body
+      const { channelId } = req.params
 
       page = page ? page : 1
-      limit = limit ? limit : 10
+      limit = limit ? limit : 50
 
       const offset = limit * (page - 1)
 
-      const findAllUsersData: UserI[] = await this.userService.findAllUser({ limit, offset })
+      const findAllUsersData: UserI[] = await this.userService.findAllUser({ limit, offset, channelId })
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' })
     } catch (error) {
@@ -25,7 +26,7 @@ class UsersController {
 
   public getUserById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = Number(req.params.id)
+      const userId = Number(req.params.userId)
       const findOneUserData: UserI = await this.userService.findUserById(userId)
 
       res.status(200).json({ data: findOneUserData, message: 'findOne' })
@@ -36,7 +37,7 @@ class UsersController {
 
   public updateUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = Number(req.params.id)
+      const userId = Number(req.params.userId)
       const userData: UserCreationI = req.body
       const updateUserData: UserI = await this.userService.updateUser(userId, userData)
 
@@ -48,7 +49,7 @@ class UsersController {
 
   public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const userId = Number(req.params.id)
+      const userId = Number(req.params.userId)
       const deleteUserData: UserI = await this.userService.deleteUser(userId)
 
       res.status(200).json({ data: deleteUserData, message: 'deleted' })
