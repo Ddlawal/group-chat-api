@@ -4,3 +4,9 @@ export interface MessageI {
   userId: string
   channelId: string
 }
+
+export interface MessageQueryI {
+  limit?: number
+  offset?: number
+  channelId?: string
+}

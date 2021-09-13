@@ -9,14 +9,17 @@ class UsersController {
   public getUsers = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { page, limit } = req.body
-      const { channelId } = req.params
 
       page = page ? page : 1
       limit = limit ? limit : 50
 
       const offset = limit * (page - 1)
 
-      const findAllUsersData: UserI[] = await this.userService.findAllUser({ limit, offset, channelId })
+      const findAllUsersData: UserI[] = await this.userService.findAllUser({
+        limit,
+        offset,
+        channelId: req.body.channelId,
+      })
 
       res.status(200).json({ data: findAllUsersData, message: 'findAll' })
     } catch (error) {
