@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
 import { UserI } from '@interfaces/users.interface'
-import { RequestWithUser } from '@interfaces/auth.interface'
 import AuthService from '@services/auth.service'
 import { UserCreationI } from '@/models/users.model'
 import DB from '@/databases'
@@ -35,7 +34,7 @@ class AuthController {
     }
   }
 
-  public logOut = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public logOut = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const userData: UserI = req.user
       await this.authService.logout(userData)

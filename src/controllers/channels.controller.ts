@@ -2,13 +2,12 @@ import { NextFunction, Request, Response } from 'express'
 import { ChannelI } from '@interfaces/channels.interface'
 import channelService from '@services/channels.service'
 import { ChannelCreationI } from '@/models/channels.model'
-import { RequestWithUser } from '@/interfaces/auth.interface'
 import DB from '@/databases'
 
 class ChannelsController {
   public channelService = new channelService()
 
-  public getAllChannels = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public getAllChannels = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { page, limit } = req.body
 
@@ -29,7 +28,7 @@ class ChannelsController {
     }
   }
 
-  public getChannels = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public getChannels = async (req: Request, res: Response, next: NextFunction) => {
     try {
       let { page, limit } = req.body
       const { userId } = req.user
@@ -63,7 +62,7 @@ class ChannelsController {
     }
   }
 
-  public createChannel = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+  public createChannel = async (req: Request, res: Response, next: NextFunction) => {
     const tr = await DB.sequelize.transaction()
     try {
       const channelData: ChannelCreationI = req.body

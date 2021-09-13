@@ -1,11 +1,11 @@
-import { NextFunction, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
 import { HttpException } from '@middlewares/error.middleware'
-import { DataStoredInToken, RequestWithUser } from '@interfaces/auth.interface'
+import { DataStoredInToken } from '@interfaces/auth.interface'
 import config from '@/config/config'
 import { User } from '@/models/users.model'
 
-const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.header('Authorization')?.split('Bearer ')[1] || null
 
