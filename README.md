@@ -8,7 +8,7 @@
 
 <div align="center">
   <h3>
-    <a href="">
+    <a href="https://lawaldd-group-chat.herokuapp.com/">
       Demo
     </a>
     <span> | </span>
@@ -37,16 +37,8 @@
 
 ## Overview
 
-<!-- ![Mobile](https://github.com/Ddlawal/news-feed/blob/main/news-feed.png)
-
-![Desktop](https://github.com/Ddlawal/news-feed/blob/main/desktop-news-feed.png)
-
-![Desktop](https://github.com/Ddlawal/news-feed/blob/main/desktop-news-feed2.png) -->
-
-Introduce your projects by taking a screenshot, video recordings or a gif. Try to tell us about the solution you built by answering the following:
-
-- Where can I see your demo?
-- What was your experience building it.
+- The group-chat-api was deployed on [Heroku](https://nodejs.org/) and can be accessed from [here](https://lawaldd-group-chat.herokuapp.com/)
+- It was my first time implementing real-time communication, I used [Socket.io](https://socket.io/) for that. Building the app was an exciting experience for me. Especially for the fact that I had the liberty to do almost everything from backend to DevOps, the font end will be built with react.
 
 ### Built With
 
