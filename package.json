@@ -5,9 +5,8 @@
   "author": "Muhammad Lawal Adamu",
   "license": "ISC",
   "scripts": {
-    "start": "npm run build && cross-env NODE_ENV=production node dist/server.js",
-    "dev": "cd client && npm run build && cd .. && cross-env NODE_ENV=development nodemon",
-    "debug": "cross-env NODE_ENV=development nodemon",
+    "start": "npm run build && cross-env NODE_ENV=production node dist/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon",
     "build": "tsc && npx tsc-alias",
     "db:makemigrations": "./node_modules/sequelize-auto-migrations/bin/makemigration.js",
     "db:migrate": "sequelize db:migrate",
@@ -18,6 +17,9 @@
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint --ignore-path .gitignore --ext .ts src/",
     "lint:fix": "npm run lint -- --fix"
+  },
+  "engine": {
+    "node": "^14.7.0"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
